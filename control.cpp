@@ -42,13 +42,6 @@ void callback(const boost::shared_ptr<const race::pid_input> &data, ros::Publish
 	if (angle < -100){
 		angle = -100;
 	}
-
-	if (vel_input > 40) {
-		vel_input = 40;
-	}
-	if (vel_input < 6) {
-		vel_input = 0;
-	}
 	
 	if(data.get()->pid_vel == 0){
 		msg.velocity = -8;
@@ -64,30 +57,21 @@ void callback(const boost::shared_ptr<const race::pid_input> &data, ros::Publish
 	//end_time = std::chrono::high_resolution_clock::now();
 }
 
+
 int main(int argc, char **argv){
 	int pub_queue_size = 1;
 	int sub_queue_size = 1;
 	//int choice = 0;
 	int given_time = 100;
 	int hz = 10;
-	string commandInput;
-	string command = "s";
+	string command;
 	string command_s1;
 	string command_s2;
 	
 	// Get user input
 	cout << "Listening to error for PID" << "\n";
-	
-while(1) {
-cout << "Enter command: ";
-	getline(cin,commandInput);
-
-	cout << "hello" << commandInput;
-	if (!(commandInput.substr(0,1)).compare(command)) {
-		cout << commandInput;		
-vel_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
-		cout << vel_input;
-	} 
+	cout << "Enter Velocity: ";
+	cin >> vel_input;
 	/*
 	// Chose different types of spin
 	cout << "Choose spinning method(0--Robust Spin, 1--Dynamic Spin, 2--Static Spin): ";
@@ -111,7 +95,7 @@ vel_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
 	ros::NodeHandle s;
 	ros::Subscriber sub = s.subscribe<race::pid_input>("error", sub_queue_size, boost::bind(callback, _1, pub));
 
-}
+
 	// Robust Spin
 	if(choice == 0){
 		ros::spin();
@@ -141,7 +125,7 @@ vel_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
 			ros::spinOnce();
 			r.sleep();
 		}
-	}	
+	}
+	
 	return 0;
 }
-
