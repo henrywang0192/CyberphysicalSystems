@@ -2,3 +2,4 @@ why would asking for cin, interfere with distance finder, lidar stopping when to
 what exactly is spin()
 what excactly is ok()
 how do we get distance data?
+we can issue commands, but disrupts lidar stopping the car when too close, break original functionality. is this required?
