@@ -1,1 +1,4 @@
 why would asking for cin, interfere with distance finder, lidar stopping when too close?
+what exactly is spin()
+what excactly is ok()
+how do we get distance data?
