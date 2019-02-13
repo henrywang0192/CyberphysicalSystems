@@ -3,3 +3,4 @@ what exactly is spin()
 what excactly is ok()
 how do we get distance data?
 we can issue commands, but disrupts lidar stopping the car when too close, break original functionality. is this required?
+what exactly is a node. are packages the node? do we need specifically race/package
