@@ -1,0 +1,1 @@
+why would asking for cin, interfere with distance finder, lidar stopping when too close?
