@@ -3,7 +3,7 @@
 
 
 
-Feb 13 - Answered
+Feb 13 - Answered 
 why would asking for cin, interfere with distance finder, lidar stopping when too close?// OK don't need original function
 what exactly is spin()// listener for event
 what excactly is ok()// see if still alive
