@@ -1,0 +1,12 @@
+
+
+
+
+
+Feb 13 - Answered 
+why would asking for cin, interfere with distance finder, lidar stopping when too close?// OK don't need original function
+what exactly is spin()// listener for event
+what excactly is ok()// see if still alive
+how do we get distance data?//from dist_finder
+we can issue commands, but disrupts lidar stopping the car when too close, break original functionality. is this required?// no not for first assignment
+what exactly is a node. are packages the node? do we need specifically race/package// nodes are in race folder. or things such as control and dist_finder for ex. rosrun race control and rosrun race dist_finder. [launch] [package] [node]?
