@@ -21,7 +21,7 @@ static double servo_offset = 18.5;
 static double prev_error = 0.0;
 static double vel_input = 25.0;
 static double start_time = 0.0;
-static int choice = 1;	// choose spin mode
+static int choice = 1;// choose spin mode
 static int angle_input = 0;
 
 static auto end_time = std::chrono::high_resolution_clock::now();
@@ -29,49 +29,49 @@ static auto end_time = std::chrono::high_resolution_clock::now();
 
 void callback(const boost::shared_ptr<const race::pid_input> &data, ros::Publisher &pub){
 
-	// TEST: show time elapsed between callbacks
-	// auto new_start = std::chrono::high_resolution_clock::now();
-	// std::chrono::duration<double> elapsed = new_start - end_time;
-	// cout << "Elapsed time between callback: " << (double)elapsed.count() << "s"<<endl;
+// TEST: show time elapsed between callbacks
+// auto new_start = std::chrono::high_resolution_clock::now();
+// std::chrono::duration<double> elapsed = new_start - end_time;
+// cout << "Elapsed time between callback: " << (double)elapsed.count() << "s"<<endl;
 
-	// double angle = data.get()->pid_error*kp;
-	double angle = angle_input;
-	race::drive_param msg;
+// double angle = data.get()->pid_error*kp;
+double angle = angle_input;
+race::drive_param msg;
 
-	if (angle > 100){
-		angle = 100;
-	}	
-	if (angle < -100){
-		angle = -100;
-	}
+if (angle > 100){
+angle = 100;
+}
+if (angle < -100){
+angle = -100;
+}
 
-	if (vel_input > 40) {
-		vel_input = 40;
-	}
-	if (vel_input < 6) {
-		vel_input = 0;
-	}
-	
-	if(data.get()->pid_vel == 0){
-		msg.velocity = -8;
-	}
-	else{
-		msg.velocity = vel_input;
-	}	
-	msg.angle = angle;
+if (vel_input > 40) {
+vel_input = 40;
+}
+if (vel_input < 6) {
+vel_input = 0;
+}
 
-	pub.publish(msg);
+if(data.get()->pid_vel == 0){
+msg.velocity = -8;
+}
+else{
+msg.velocity = vel_input;
+}
+msg.angle = angle;
 
-	// TEST:
-	//end_time = std::chrono::high_resolution_clock::now();
+pub.publish(msg);
+
+// TEST:
+//end_time = std::chrono::high_resolution_clock::now();
 }
 
 void enterCommand() {
         string commandInput;
-	string command = "s";
-	string command_angle = "t";
-	string command_circle = "c";
-	cout << "Enter command: ";
+string command = "s";
+string command_angle = "t";
+string command_circle = "c";
+cout << "Enter command: ";
         getline(cin,commandInput);
 
         cin.clear();
@@ -80,43 +80,42 @@ void enterCommand() {
             vel_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
             // cout << vel_input << "\n";
         } else if (!(commandInput.substr(0,1)).compare(command_angle)) {
- 	    angle_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
-	} else if (!(commandInput.substr(0,1)).compare(command_circle)) {
-	    vel_input = 20;
-	    angle_input = 100;
-	} else {
+     angle_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
+} else if (!(commandInput.substr(0,1)).compare(command_circle)) {
+    vel_input = 20;
+    angle_input = 100;
+} else {
             cout << "invalid command" << "\n";
         }
 }
 
 int main(int argc, char **argv){
-	int pub_queue_size = 1;
-	int sub_queue_size = 1;
-	//int choice = 0;
-	int given_time = 100;
-	int hz = 10;
-	// string commandInput;
-	// string command = "s";
-	string command_s1;
-	string command_s2;
-	
-	// Get user input
-	cout << "Listening to error for PID" << "\n";
-	
+int pub_queue_size = 1;
+int sub_queue_size = 1;
+//int choice = 0;
+int given_time = 100;
+int hz = 10;
+// string commandInput;
+// string command = "s";
+string command_s1;
+string command_s2;
+
+// Get user input
+cout << "Listening to error for PID" << "\n";
+
     /* while(1) {
         cout << "Enter command: ";
         getline(cin,commandInput);
-
-	cin.clear();
+cin.clear();
         if (!(commandInput.substr(0,1)).compare(command)) {
             // cout << commandInput << "\n";
             vel_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
             // cout << vel_input << "\n";
         } else {
-	    cout << "invalid command";
-	}
+    cout << "invalid command";
+}
     */
-	// enterCommand();
+// enterCommand();
         /*
         // Chose different types of spin
         cout << "Choose spinning method(0--Robust Spin, 1--Dynamic Spin, 2--Static Spin): ";
@@ -158,8 +157,8 @@ int main(int argc, char **argv){
 
             // Dynamically sleep
             std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time));
-	    enterCommand();
-	}
+    enterCommand();
+}
     }
 
     // Static Spin
@@ -172,4 +171,3 @@ int main(int argc, char **argv){
     } 
     return 0;
 }
-

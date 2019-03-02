@@ -11,12 +11,6 @@ ros/ros.h
 /home/nvidia/catkin_ws/src/race/src/ros/ros.h
 std_msgs/String.h
 /home/nvidia/catkin_ws/src/race/src/std_msgs/String.h
-sstream
--
-string
--
-vector
--
 
 /opt/ros/kinetic/include/ros/advertise_options.h
 ros/forwards.h

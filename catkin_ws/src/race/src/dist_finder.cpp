@@ -52,7 +52,7 @@ static void callBack(const boost::shared_ptr<const sensor_msgs::LaserScan> &data
 	c_distance = getRange(raw_data,540);
 
 	p_distance = c_distance;
-
+	cout << p_distance << "\n";
 	if(getRange(raw_data,540) < 0.75){
 		vel = 0;
 	}
