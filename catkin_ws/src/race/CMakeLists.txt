@@ -122,6 +122,49 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+## For each new node wrote in C++:
+## add_executable(NODE_NAME src/FILE_NAME.cpp)
+## target_link_libraries(NODE_NAME
+##   ${catkin_LIBRARIES}
+## )
+## add_dependencies(NODE_NAME ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(dist_finder src/dist_finder.cpp)
+target_link_libraries(dist_finder
+   ${catkin_LIBRARIES}
+)
+add_dependencies(dist_finder ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(control src/control.cpp)
+target_link_libraries(control
+   ${catkin_LIBRARIES}
+)
+add_dependencies(control ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(talker src/talker.cpp)
+target_link_libraries(talker
+   ${catkin_LIBRARIES}
+)
+add_dependencies(talker ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(hw1pub src/hw1pub.cpp)
+target_link_libraries(hw1pub
+
+   ${catkin_LIBRARIES}
+
+)
+add_dependencies(hw1pub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(hw1sub src/hw1sub.cpp)
+
+target_link_libraries(hw1sub
+
+   ${catkin_LIBRARIES}
+
+)
+
+add_dependencies(hw1sub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/race.cpp

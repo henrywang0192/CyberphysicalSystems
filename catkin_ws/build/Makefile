@@ -257,6 +257,45 @@ gtest_main/fast:
 .PHONY : gtest_main/fast
 
 #=============================================================================
+# Target rules for targets named talker
+
+# Build rule for target.
+talker: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 talker
+.PHONY : talker
+
+# fast build rule for target.
+talker/fast:
+	$(MAKE) -f race/CMakeFiles/talker.dir/build.make race/CMakeFiles/talker.dir/build
+.PHONY : talker/fast
+
+#=============================================================================
+# Target rules for targets named control
+
+# Build rule for target.
+control: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 control
+.PHONY : control
+
+# fast build rule for target.
+control/fast:
+	$(MAKE) -f race/CMakeFiles/control.dir/build.make race/CMakeFiles/control.dir/build
+.PHONY : control/fast
+
+#=============================================================================
+# Target rules for targets named dist_finder
+
+# Build rule for target.
+dist_finder: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dist_finder
+.PHONY : dist_finder
+
+# fast build rule for target.
+dist_finder/fast:
+	$(MAKE) -f race/CMakeFiles/dist_finder.dir/build.make race/CMakeFiles/dist_finder.dir/build
+.PHONY : dist_finder/fast
+
+#=============================================================================
 # Target rules for targets named race_genpy
 
 # Build rule for target.
@@ -491,6 +530,19 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named hw1pub
+
+# Build rule for target.
+hw1pub: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw1pub
+.PHONY : hw1pub
+
+# fast build rule for target.
+hw1pub/fast:
+	$(MAKE) -f race/CMakeFiles/hw1pub.dir/build.make race/CMakeFiles/hw1pub.dir/build
+.PHONY : hw1pub/fast
+
+#=============================================================================
 # Target rules for targets named roscpp_generate_messages_lisp
 
 # Build rule for target.
@@ -580,6 +632,19 @@ race_generate_messages: cmake_check_build_system
 race_generate_messages/fast:
 	$(MAKE) -f race/CMakeFiles/race_generate_messages.dir/build.make race/CMakeFiles/race_generate_messages.dir/build
 .PHONY : race_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named hw1sub
+
+# Build rule for target.
+hw1sub: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw1sub
+.PHONY : hw1sub
+
+# fast build rule for target.
+hw1sub/fast:
+	$(MAKE) -f race/CMakeFiles/hw1sub.dir/build.make race/CMakeFiles/hw1sub.dir/build
+.PHONY : hw1sub/fast
 
 #=============================================================================
 # Target rules for targets named race_generate_messages_cpp
@@ -1329,6 +1394,9 @@ help:
 	@echo "... test"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... talker"
+	@echo "... control"
+	@echo "... dist_finder"
 	@echo "... race_genpy"
 	@echo "... race_generate_messages_py"
 	@echo "... race_generate_messages_nodejs"
@@ -1347,6 +1415,7 @@ help:
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... race_gencpp"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... hw1pub"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... std_msgs_generate_messages_lisp"
@@ -1354,6 +1423,7 @@ help:
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... race_generate_messages"
+	@echo "... hw1sub"
 	@echo "... race_generate_messages_cpp"
 	@echo "... _catkin_empty_exported_target"
 	@echo "... _race_generate_messages_check_deps_drive_param"
