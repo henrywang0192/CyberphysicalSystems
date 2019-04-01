@@ -104,19 +104,30 @@ void cv_color_tracking(const Mat& input_img, ros::Publisher &controlPub)
 	//cout << "Area:" << area << endl;
 	if (area > limit) {
             cout << "Area: " << area << endl;
-	    detected = true;
-	    double br = boundingRect(counters[i]);
-	    double cx = br.x + br.width / 2; 
-	    double cy = br.y + br.height / 2;
+            detected = true;
+            cout << boundingRect(contours[i]) << endl; // x,y - x is the width, y is the height from $
+            Scalar sc(0,255,255);
+            Rect br = boundingRect(contours[i]);
+            double cx = br.x + br.width/2;
+            double cy = br.y + br.height/2;
+            Point center(cx, cy);
+            cv::line(input_img, Point(cx - br.width/30, cy - br.height/30),
+            Point(cx + br.width/30, cy + br.height/30), sc, 5, 8,0);
+            cv::line(input_img, Point(cx - br.width/30, cy + br.height/30),
+            Point(cx + br.width/30, cy - br.height/30), sc, 5, 8,0);
 
-	    Point topRight = Point(br.x, br.y);
-	    Point bottomLeft = Point(br.x + br.width, br.y + br.height);
-	    cv::rectangle(input_img, topRight, bottomLeft, Scalar(255, 255, 0), 2);
+            if (cx < 360 ){
+                cout << "left" << endl;
+            }
+            else if ( cx > 720 ){
+                cout << "right" << endl;
+            }
+            else{
+                cout << "center" << endl;
+            }
+            cv::rectangle(input_img, br.tl(), br.br(), sc, 2);
 
-	    Point center = Point(cx, cy);
-	    cv::putText(input_img, "x", center, 1, Scalar(255,255,0));
-
-	}
+        }
     }
     if (detected){
         detected_count += 1;
