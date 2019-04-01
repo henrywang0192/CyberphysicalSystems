@@ -88,11 +88,11 @@ void cv_color_tracking(const Mat& input_img, ros::Publisher &controlPub)
     dilate( mask, mask, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
     erode(mask, mask, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
     
-    //Find the contour, then indentify rectangle, center, radius using openCV build in functions
+    //Find the contour, then identify rectangle, center, radius using openCV build in functions
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
     findContours(mask, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
-   
+   	
 
     double limit = 12000;
     int detected = false;
@@ -105,6 +105,17 @@ void cv_color_tracking(const Mat& input_img, ros::Publisher &controlPub)
 	if (area > limit) {
             cout << "Area: " << area << endl;
 	    detected = true;
+	    double br = boundingRect(counters[i]);
+	    double cx = br.x + br.width / 2; 
+	    double cy = br.y + br.height / 2;
+
+	    Point topRight = Point(br.x, br.y);
+	    Point bottomLeft = Point(br.x + br.width, br.y + br.height);
+	    cv::rectangle(input_img, topRight, bottomLeft, Scalar(255, 255, 0), 2);
+
+	    Point center = Point(cx, cy);
+	    cv::putText(input_img, "x", center, 1, Scalar(255,255,0));
+
 	}
     }
     if (detected){
