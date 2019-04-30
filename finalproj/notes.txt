@@ -1,0 +1,21 @@
+pid:
+
+absolute distance for avoidance speed+turning
+size of area for speed
+
+foot = 60K
+3 hjuk foot = 10K
+5 hjuk foot = 4.2K
+8 HYUJK foot = 1.6K
+10 HYUK = 900
+
+drop limit
+
+A = 60K
+B = -1.4 (-1.37)
+
+A = 275 
+B = -0.5 (-0.484)
+
+power
+Y = a x ^ y
