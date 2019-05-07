@@ -1,1 +1,2 @@
-
+Yijin: wide sweep 0.2, continue current course at 0 degree change until obstacle clears wide sweep
+Andrew: building on Yijin, sharp memory of last known target, opposite of avoidance once cleared
