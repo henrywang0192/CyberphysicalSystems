@@ -34,59 +34,21 @@ void callback(const boost::shared_ptr<const race::pid_input> &data, ros::Publish
 // std::chrono::duration<double> elapsed = new_start - end_time;
 // cout << "Elapsed time between callback: " << (double)elapsed.count() << "s"<<endl;
 
-// double angle = data.get()->pid_error*kp;
-double angle = angle_input;
+double angle = data.get()->pid_error*kp;
+cout << "pid_error angle" << endl;
+        
 race::drive_param msg;
 
-if (angle > 100){
-angle = 100;
-}
-if (angle < -100){
-angle = -100;
-}
-
-if (vel_input > 40) {
-vel_input = 40;
-}
-if (vel_input < 6) {
-vel_input = 0;
-}
-
 if(data.get()->pid_vel == 0){
-msg.velocity = -8;
+        msg.velocity = -8;
+}else{
+        msg.velocity = data.get()->vel_error;
 }
-else{
-msg.velocity = vel_input;
-}
+        
 msg.angle = angle;
 
 pub.publish(msg);
 
-// TEST:
-//end_time = std::chrono::high_resolution_clock::now();
-}
-
-void enterCommand() {
-        string commandInput;
-string command = "s";
-string command_angle = "t";
-string command_circle = "c";
-cout << "Enter command: ";
-        getline(cin,commandInput);
-
-        cin.clear();
-        if (!(commandInput.substr(0,1)).compare(command)) {
-            // cout << commandInput << "\n";
-            vel_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
-            // cout << vel_input << "\n";
-        } else if (!(commandInput.substr(0,1)).compare(command_angle)) {
-     angle_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
-} else if (!(commandInput.substr(0,1)).compare(command_circle)) {
-    vel_input = 20;
-    angle_input = 100;
-} else {
-            cout << "invalid command" << "\n";
-        }
 }
 
 int main(int argc, char **argv){
@@ -102,33 +64,6 @@ string command_s2;
 
 // Get user input
 cout << "Listening to error for PID" << "\n";
-
-    /* while(1) {
-        cout << "Enter command: ";
-        getline(cin,commandInput);
-cin.clear();
-        if (!(commandInput.substr(0,1)).compare(command)) {
-            // cout << commandInput << "\n";
-            vel_input = std::stoi(commandInput.substr(2,commandInput.length() - 2));
-            // cout << vel_input << "\n";
-        } else {
-    cout << "invalid command";
-}
-    */
-// enterCommand();
-        /*
-        // Chose different types of spin
-        cout << "Choose spinning method(0--Robust Spin, 1--Dynamic Spin, 2--Static Spin): ";
-        cin >> choice;
-        if(choice == 1){
-            cout << "Enter Execution Time in milliseconds: ";
-            cin >> given_time;
-        }
-        if(choice == 2){
-            cout << "Enter Frequency in HZ: ";
-            cin >> hz;
-        }
-        */
 
         // Initiate Node
         ros::init(argc, argv, "pid_controller");
@@ -157,7 +92,6 @@ cin.clear();
 
             // Dynamically sleep
             std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time));
-    enterCommand();
 }
     }
 
