@@ -35,7 +35,7 @@ void callback(const boost::shared_ptr<const race::pid_input> &data, ros::Publish
 // cout << "Elapsed time between callback: " << (double)elapsed.count() << "s"<<endl;
 
 double angle = data.get()->pid_error*kp;
-cout << "pid_error angle" << endl;
+cout << "pid_error angle: " << angle << endl;
         
 race::drive_param msg;
 
