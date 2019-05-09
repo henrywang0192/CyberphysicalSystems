@@ -1,2 +1,13 @@
 Yijin: wide sweep 0.2, continue current course at 0 degree change until obstacle clears wide sweep
 Andrew: building on Yijin, sharp memory of last known target, opposite of avoidance once cleared
+
+May 8:
+Andrew: What if we use our current avoid object, move opposite of object at high turn angle, and high velocity, burst to change course. 
+
+Additional to our orginal, use the same angle and velocity back the opposite way of where we just went. once cleared obstacle.
+So hold on to until continuous side object gone. then release the blast and clear the entry.
+
+While (attempting obstacle avoid){
+}
+// released at this point, restoring blast opposite to our avoidance.
+
