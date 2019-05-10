@@ -11,3 +11,8 @@ While (attempting obstacle avoid){
 }
 // released at this point, restoring blast opposite to our avoidance.
 
+May 9:
+
+3 states: 0 red circle finding, 1 obstacle avoidance, 2 obstacle clearing
+Added dist-finder's wall following code for both sides, have problem always turning right circle
+need to correct clearance formula.
