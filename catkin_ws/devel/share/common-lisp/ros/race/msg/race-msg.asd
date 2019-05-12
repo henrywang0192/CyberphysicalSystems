@@ -10,4 +10,6 @@
     (:file "_package_drive_values" :depends-on ("_package"))
     (:file "pid_input" :depends-on ("_package_pid_input"))
     (:file "_package_pid_input" :depends-on ("_package"))
+    (:file "std_msgs" :depends-on ("_package_std_msgs"))
+    (:file "_package_std_msgs" :depends-on ("_package"))
   ))

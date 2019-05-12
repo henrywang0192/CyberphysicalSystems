@@ -7,4 +7,3 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/nvidia/catkin_ws/build"

@@ -7,5 +7,7 @@
    "DRIVE_VALUES"
    "<PID_INPUT>"
    "PID_INPUT"
+   "<STD_MSGS>"
+   "STD_MSGS"
   ))
 

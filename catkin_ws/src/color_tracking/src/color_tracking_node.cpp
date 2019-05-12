@@ -5,6 +5,7 @@
 #include <cv_bridge/cv_bridge.h>
 #include <ctime>
 #include "std_msgs/Int16.h"
+#include "std_msgs/String.h"
 //#include "opencv2/opencv.hpp"
 #include "opencv2/features2d.hpp"
 #include <iostream>
@@ -73,15 +74,14 @@ void cv_color_tracking(const Mat& input_img, ros::Publisher &controlPub)
 
     Mat1b mask1;
     Mat1b mask2;
-    //*** supply a range of r,g,b to exclude
     cv::inRange(imgHSV, Scalar(115,127,65), Scalar(125, 255,255), mask1); // red
     cv::inRange(imgHSV, Scalar(115,127,65), Scalar(125, 255,255), mask2); // red
 
     //Mat1b mask = mask1;
 
-    //    cv::inRange(imgHSV, cv::Scalar(0, 70, 50), cv::Scalar(10, 255, 255), mask1);    //Blue
-    //    cv::inRange(imgHSV, cv::Scalar(170, 70, 50), cv::Scalar(180, 255, 255), mask2); // Blue
-    //    cv::Mat1b mask = mask1 | mask2;
+//    cv::inRange(imgHSV, cv::Scalar(0, 70, 50), cv::Scalar(10, 255, 255), mask1);    //Blue
+//    cv::inRange(imgHSV, cv::Scalar(170, 70, 50), cv::Scalar(180, 255, 255), mask2); // Blue
+//    cv::Mat1b mask = mask1 | mask2;
     cv::Mat1b mask = mask1 | mask2;
 
     erode(mask, mask, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
@@ -97,44 +97,51 @@ void cv_color_tracking(const Mat& input_img, ros::Publisher &controlPub)
     findContours(mask, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
    
 
-    double limit = 12000;
+    double limit = 150;
     int detected = false;
-    std_msgs::Int16 msg;
+    // std_msgs::Int16 msg;
+    std_msgs::String msg;
 
+    std::stringstream ss;
+    double cx = 0;
+    double area = 0;
+    double maxArea = 0;
+    double maxCx = 0;
     size_t num_contours = contours.size();
     for (size_t i = 0; i < num_contours; i++) {
-        double area = contourArea(contours[i]);
-
-    	if (area > limit) {
+	area = contourArea(contours[i]);
+//	cout << "Area:" << area << endl;
+	if (area > limit) {
             cout << "Area: " << area << endl;
-    	    detected = true;
-    	    
-            cout << boundingRect(contours[i]) << endl; // x,y - x is the width, y is the height from (x, y) starting from top left 
-    	    
-            Scalar sc(0,255,255); // values for the color yellow, used repeatedly in bounding box and drawing x.
-            Rect br = boundingRect(contours[i]); // contour is a matrix of points, so the object to be detected
-            double cx = br.x + br.width/2;
+	    detected = true;
+	    cout << boundingRect(contours[i]) << endl; // x,y - x is the width, y is the height from (x, y) starting from top left 
+	    Scalar sc(0,255,255);
+            Rect br = boundingRect(contours[i]);
+            cx = br.x + br.width/2;
             double cy = br.y + br.height/2;
             Point center(cx, cy);
             cv::line(input_img, Point(cx - br.width/30, cy - br.height/30),
-    	    Point(cx + br.width/30, cy + br.height/30), sc, 5, 8,0);
+	    Point(cx + br.width/30, cy + br.height/30), sc, 5, 8,0);
             cv::line(input_img, Point(cx - br.width/30, cy + br.height/30),
-    	    Point(cx + br.width/30, cy - br.height/30), sc, 5, 8,0);
+	    Point(cx + br.width/30, cy - br.height/30), sc, 5, 8,0);
 
-            // assuming width of the detectable region to be represented by 1080, we portion in thirds.
-            // the reported position depends on which third the detected object is found
-            if ( cx < 360 ){
-                cout << "left" << endl;
-    	    }
-    	    else if ( cx > 720 ){
-                cout << "right" << endl;
-    	    }
-    	    else{
-                cout << "center" << endl;
+            if (cx < 360 ){
+		cout << "left" << endl;
+	    }
+	    else if ( cx > 720 ){
+		cout << "right" << endl;
+	    }
+	    else{
+		cout << "center" << endl;
             }
+	    if (area > maxArea) {
+                maxArea = area;
+            	maxCx = cx;
+	    }	
             cv::rectangle(input_img, br.tl(), br.br(), sc, 2);
-    	}
+	}
     }
+    ss << maxArea << "," << maxCx;
     if (detected){
         detected_count += 1;
     }else{
@@ -143,15 +150,15 @@ void cv_color_tracking(const Mat& input_img, ros::Publisher &controlPub)
     
     if (detected_count >= 2) {
         cout << "Detected" << std::endl;
-        msg.data = 1;
-        controlPub.publish(msg);
+        ss << "," << 1;
     }else{
         cout << "Haven't detected" << std::endl;
-	msg.data = 0;
-        controlPub.publish(msg);
+	ss << "," << 0;
     }
-    cv::imshow("color_tracking_input_image", input_img);
-    cv::imshow("blue_tracking", mask); 
+    msg.data = ss.str();
+    controlPub.publish(msg);
+//    cv::imshow("color_tracking_input_image", input_img);
+//    cv::imshow("blue_tracking", mask); 
     
     waitKey(1);
 }
@@ -230,9 +237,13 @@ int main(int argc, char **argv)
     image_transport::ImageTransport itpub(nh_pub);
     image_transport::Publisher pub = itpub.advertise("sample/cannyimg", 1);
     
-    ros::NodeHandle node;
+    /*ros::NodeHandle node;
     uint32_t queue_size = 500;
-    ros::Publisher controlPub = node.advertise<std_msgs::Int16>("imagecontrol", queue_size);
+    ros::Publisher controlPub = node.advertise<std_msgs::Int16>("imagecontrol", queue_size); */
+
+    ros::NodeHandle controlNode;
+    ros::Publisher controlPub = controlNode.advertise<std_msgs::String>("control", 1000);
+    
     
     
 #ifdef MEASURE_TIME

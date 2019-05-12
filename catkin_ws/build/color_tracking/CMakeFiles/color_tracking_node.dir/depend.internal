@@ -209,5 +209,6 @@ color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o
  /opt/ros/kinetic/include/sensor_msgs/image_encodings.h
  /opt/ros/kinetic/include/std_msgs/Header.h
  /opt/ros/kinetic/include/std_msgs/Int16.h
+ /opt/ros/kinetic/include/std_msgs/String.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h

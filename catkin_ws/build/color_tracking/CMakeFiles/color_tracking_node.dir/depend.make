@@ -208,6 +208,7 @@ color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o:
 color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o: /opt/ros/kinetic/include/sensor_msgs/image_encodings.h
 color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o: /opt/ros/kinetic/include/std_msgs/Header.h
 color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o: /opt/ros/kinetic/include/std_msgs/Int16.h
+color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o: /opt/ros/kinetic/include/std_msgs/String.h
 color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 color_tracking/CMakeFiles/color_tracking_node.dir/src/color_tracking_node.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
 

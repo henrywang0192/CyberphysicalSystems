@@ -21,6 +21,8 @@ ctime
 -
 std_msgs/Int16.h
 /home/nvidia/catkin_ws/src/color_tracking/src/std_msgs/Int16.h
+std_msgs/String.h
+/home/nvidia/catkin_ws/src/color_tracking/src/std_msgs/String.h
 opencv2/features2d.hpp
 /home/nvidia/catkin_ws/src/color_tracking/src/opencv2/features2d.hpp
 iostream
@@ -2197,6 +2199,22 @@ ros/message_operations.h
 -
 
 /opt/ros/kinetic/include/std_msgs/Int16.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/opt/ros/kinetic/include/std_msgs/String.h
 string
 -
 vector
